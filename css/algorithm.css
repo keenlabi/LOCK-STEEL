@@ -1,0 +1,41 @@
+*{
+    margin: 0px;
+    font-family: 'montserrat';
+}
+div.title{
+    height: 30vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 200%;
+}
+div.content{
+    width: 75%;
+    margin: 0% 0% 0% 20%;
+}
+div.section{
+    min-height: 100px;
+}
+div.section div.subtitle{
+    font-weight: 700;
+}
+div.section > div.body{
+    width: 90%;
+    margin: 5% auto 0%;
+}
+div.section div.body{
+    font-weight: 400;
+    color: grey;
+    font-family: 'roboto mono';
+}
+div.step{
+    display: flex;
+    margin-bottom: 5%;
+}
+div.step div.body{
+    margin: 0% 0% 0% 5%;
+}
+
+
+
