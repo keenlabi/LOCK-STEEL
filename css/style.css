@@ -1,6 +1,6 @@
 *{
     margin: 0px;
-    font-family: 'montserrat';
+    font-family: 'roboto mono';
 }
 a{
     font-weight: 600;
@@ -19,7 +19,6 @@ body{
 div.form{
     height: 80vh;
     width: 25%;
-    text-align: center;
 }
 .form-title{
     font-size: 200%;
@@ -33,19 +32,32 @@ div.form{
     text-align: left;
 }
 div.field{
-    width: 100%;
+    width: 99%;
     margin-top: 20%;
-}
-input.password{
-    margin-top: 10%;
-    width: 90%;
-    font-size: 110%;
-    padding: 4%;
     border: 3px solid;
     border-radius: 5px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+input.password{
+    width: 60%;
+    font-size: 110%;
+    padding: 4% 0% 4% 3%;
+    background: none;
+    border: none;
+    outline: none;
+}
+div.show-pass, div.gen-pass{
+    font-size: 90%;
+    font-weight: 700;
+    color: grey;
+    cursor: pointer;
+    margin-right: 3%;
+}
+div.show-pass::selection, div.gen-pass::selection{
     background: none;
 }
-
-
 
 

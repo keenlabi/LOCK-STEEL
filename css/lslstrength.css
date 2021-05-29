@@ -7,11 +7,11 @@ div.progress-bar{
 div.progress-bar > div {
     border: 1px solid lightgrey;
     width: 22%;
-    height: 12px;
+    height: 8px;
     border-radius: 5px;
 }
 div.percentage{
-    border: 1px solid grey;
+    border: 1px solid lightgrey;
     margin: 10% auto 0% auto;
     width: 200px;
     height: 200px;

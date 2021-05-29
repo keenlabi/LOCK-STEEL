@@ -6,7 +6,7 @@ inputPasswordField.addEventListener('keyup', (e)=>{
     allBars.forEach(bar => {
         bar.style.background = 'none';
         bar.style.border = '1px solid lightgrey';
-    });4
+    });
     var pwdPercent = getStrengthPercent(inputPasswordField.value);
     if(pwdPercent == 100){
         allBars.forEach(bar => {
@@ -50,12 +50,13 @@ function getStrengthPercent(inputPassword){
     percent = percent + (percentByUppercase(inputPassword));
     percent = percent + (percentByChar(inputPassword));
     percent = percent + (percentByNum(inputPassword));
-
+    percent = charRepitition(percent, inputPassword);
+    
     return percent;
 }
 
 function percentByLength(inputPassword){
-    if(inputPassword.length >= 10) return 25;
+    if(inputPassword.length >= 16) return 25;
     else if(inputPassword.length >= 8) return 15;
     else if(inputPassword.length > 0) return 5;
     else return 0;
@@ -70,8 +71,8 @@ function percentByUppercase(inputPassword){
     });
 
     if(inputPassword.length - noOfUpperCase.length >= inputPassword.length) return 0;
-    else if(inputPassword.length - noOfUpperCase.length >= 8) return 25;
-    else if(inputPassword.length - noOfUpperCase.length >= 6) return 15;
+    else if(inputPassword.length - noOfUpperCase.length >= 16) return 25;
+    else if(inputPassword.length - noOfUpperCase.length >= 8) return 15;
     else if(inputPassword.length - noOfUpperCase.length > 0) return 5;
     else return 0;
 }
@@ -85,8 +86,8 @@ function percentByChar(inputPassword){
     });
 
     if(inputPassword.length - noOfChar.length >= inputPassword.length) return 0;
-    else if(inputPassword.length - noOfChar.length >= 7) return 25;
-    else if(inputPassword.length - noOfChar.length >= 5) return 15;
+    else if(inputPassword.length - noOfChar.length >= 16) return 25;
+    else if(inputPassword.length - noOfChar.length >= 8) return 15;
     else if(inputPassword.length - noOfChar.length > 0) return 5;
     else return 0;
 }
@@ -100,14 +101,65 @@ function percentByNum(inputPassword){
     });
 
     if(inputPassword.length - noOfChar.length >= inputPassword.length) return 0;
-    else if(inputPassword.length - noOfChar.length >= 7) return 25;
-    else if(inputPassword.length - noOfChar.length >= 5) return 15;
+    else if(inputPassword.length - noOfChar.length >= 16) return 25;
+    else if(inputPassword.length - noOfChar.length >= 8) return 15;
     else if(inputPassword.length - noOfChar.length > 0) return 5;
     else return 0;
 }
 
 
+const showPasswordBtn = document.querySelector('div.show-pass');
+showPasswordBtn.addEventListener('click', (event)=>{
+    if(inputPasswordField.getAttribute('type') == "password") {
+        inputPasswordField.setAttribute('type','text');
+        showPasswordBtn.innerHTML = 'HIDE';
+    } else {
+        inputPasswordField.setAttribute('type','password');    
+        showPasswordBtn.innerHTML = 'SHOW';
+    } 
+});
 
+const generatePasswordBtn = document.querySelector('div.gen-pass');
+generatePasswordBtn.addEventListener('click', (event)=>{
+    var upperCaseLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var lowerCaseLetters = upperCaseLetters.toLowerCase();
+    var numbers = '1234567890';
+    var chars = '`,.~{}()+_=-!@#$%^&*|\\\'":?';
+    var passwordLength = 16;
+    
+    var newPassword;
+
+    // 16 characters all together 
+    // 12 letters
+    // 2 numbers
+    // 1 chars
+
+    // for(var i = 0; i < passwordLength; i++){
+        var number = Math.floor(Math.random() * 10);
+        if(number <= 5) console.log(number);
+    // }
+    
+});
+
+function charRepitition(percent, inputPassword){
+    var allChar = inputPassword.split('');
+    var reps = [];
+
+    for (var currentPosition = 0; currentPosition < allChar.length; currentPosition++) {
+        for(var inc = 1; inc <= 2; inc++){
+            var nextPosition = currentPosition + inc;
+            if(allChar[currentPosition] == allChar[nextPosition] || allChar[nextPosition] <= (parseInt(allChar[currentPosition]) + 1)){
+                if(!reps.includes(allChar[currentPosition])) reps.push(allChar[currentPosition]); 
+                else break;
+            }
+        }
+    }
+    
+    if(reps.length >= 3) return percent - 25;
+    if(reps.length == 2) return percent - 15;
+    if(reps.length == 1) return percent - 5;
+    return percent;
+}
 
 
 
