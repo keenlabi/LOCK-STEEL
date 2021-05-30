@@ -3,11 +3,15 @@ var currentPercent = document.querySelector('div.percentage > div.digit');
 
 var inputPasswordField = document.querySelector('input.password');
 inputPasswordField.addEventListener('keyup', (e)=>{
+    detPasswordStrength(inputPasswordField.value);
+});
+
+function detPasswordStrength(password){
     allBars.forEach(bar => {
         bar.style.background = 'none';
         bar.style.border = '1px solid lightgrey';
     });
-    var pwdPercent = getStrengthPercent(inputPasswordField.value);
+    var pwdPercent = getStrengthPercent(password);
     if(pwdPercent == 100){
         allBars.forEach(bar => {
             bar.style.background = 'green';
@@ -29,7 +33,7 @@ inputPasswordField.addEventListener('keyup', (e)=>{
     }
 
     displayPercent(pwdPercent);
-});
+}
 
 function displayPercent(pwdPercent){
     var count = currentPercent.textContent;
@@ -112,55 +116,100 @@ const showPasswordBtn = document.querySelector('div.show-pass');
 showPasswordBtn.addEventListener('click', (event)=>{
     if(inputPasswordField.getAttribute('type') == "password") {
         inputPasswordField.setAttribute('type','text');
-        showPasswordBtn.innerHTML = 'HIDE';
+        showPasswordBtn.children[0].innerHTML = 'visibility_off';
     } else {
         inputPasswordField.setAttribute('type','password');    
-        showPasswordBtn.innerHTML = 'SHOW';
+        showPasswordBtn.children[0].innerHTML = 'visibility';
     } 
 });
 
 const generatePasswordBtn = document.querySelector('div.gen-pass');
 generatePasswordBtn.addEventListener('click', (event)=>{
+
     var upperCaseLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     var lowerCaseLetters = upperCaseLetters.toLowerCase();
     var numbers = '1234567890';
     var chars = '`,.~{}()+_=-!@#$%^&*|\\\'":?';
     var passwordLength = 16;
     
-    var newPassword;
+    var newPassword = [];
 
     // 16 characters all together 
-    // 12 letters
+    // 12 letters: 7 uc, 5lc
     // 2 numbers
     // 1 chars
 
-    // for(var i = 0; i < passwordLength; i++){
-        var number = Math.floor(Math.random() * 10);
-        if(number <= 5) console.log(number);
-    // }
-    
+    for(var i = 0; i < 3; i++){
+        var letterPosition = Math.floor(Math.random() * upperCaseLetters.length);
+           
+        if(newPassword[newPassword.length - 1] != upperCaseLetters[letterPosition] && newPassword[newPassword.length - 2] != upperCaseLetters[letterPosition]){
+            newPassword.push(upperCaseLetters[letterPosition]);
+            console.log(newPassword.length - 1 + ' = ' + upperCaseLetters[letterPosition]);
+        } else --i
+    }
+
+    for(var i = 0; i < 13; i++){
+        var letterPosition = Math.floor(Math.random() * lowerCaseLetters.length);
+
+        if(newPassword[newPassword.length - 1].toLowerCase() != lowerCaseLetters[letterPosition] && newPassword[newPassword.length - 2].toLowerCase() != lowerCaseLetters[letterPosition]){
+            newPassword.push(lowerCaseLetters[letterPosition]);
+            console.log(newPassword.length - 1 + ' = ' + lowerCaseLetters[letterPosition]);
+        } else --i;
+    }
+
+    for(var i = 0; i < 2; i++){
+        var letterPosition = Math.floor(Math.random() * numbers.length);
+
+        if(newPassword[newPassword.length - 1] != numbers[letterPosition]
+        && parseInt(newPassword[newPassword.length - 1]) + 1 != numbers[letterPosition]
+        && parseInt(newPassword[newPassword.length - 1]) - 1  != numbers[letterPosition]
+        && parseInt(newPassword[newPassword.length - 1]) + 2  != numbers[letterPosition]
+        && parseInt(newPassword[newPassword.length - 1]) - 2  != numbers[letterPosition]){
+            newPassword.push(numbers[letterPosition]);
+            console.log(newPassword.length - 1 + ' = ' + numbers[letterPosition]);
+        } else --i;
+    }
+
+    var letterPosition = Math.floor(Math.random() * chars.length);
+
+    newPassword.push(chars[letterPosition]);
+    console.log(newPassword.length - 1 + ' = ' + chars[letterPosition]);
+
+    for (var i = 0; i < newPassword.length; i++) {
+        var randomIndex = Math.floor(Math.random() * newPassword.length);
+        var hold = newPassword[randomIndex];
+        newPassword[randomIndex] = newPassword[i];
+        newPassword[i] = hold;
+    }
+
+    inputPasswordField.value = newPassword.join('');
+    detPasswordStrength(newPassword.join(''));
 });
+
+
 
 function charRepitition(percent, inputPassword){
     var allChar = inputPassword.split('');
+    console.log(allChar);
     var reps = [];
 
     for (var currentPosition = 0; currentPosition < allChar.length; currentPosition++) {
         for(var inc = 1; inc <= 2; inc++){
             var nextPosition = currentPosition + inc;
-            if(allChar[currentPosition] == allChar[nextPosition] || allChar[nextPosition] <= (parseInt(allChar[currentPosition]) + 1)){
+            if(allChar[currentPosition] == allChar[nextPosition] || allChar[nextPosition] == (parseInt(allChar[currentPosition]) + 1)){
                 if(!reps.includes(allChar[currentPosition])) reps.push(allChar[currentPosition]); 
                 else break;
             }
         }
     }
+
+    console.log(reps);
     
     if(reps.length >= 3) return percent - 25;
     if(reps.length == 2) return percent - 15;
     if(reps.length == 1) return percent - 5;
     return percent;
 }
-
 
 
 
