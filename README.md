@@ -34,7 +34,11 @@ Once the button is clicked, the password field is filled with an auto generated 
 #### HTML
 You must have created an input field width a unique class of 'password', as that is what the css and JS will attach to.
 
-    <input type="password" class="password"> 
+    <div class="field">
+        <input type="password" class="password" placeholder="Password">
+        <div class="gen-pass">GENERATE</div>
+        <div class="show-pass"><i class="material-icons">visibility</i></div>
+    </div>
 
 To display the indicator bar, which is optional, you must copy and paste the following code anywhere in your document:
    
@@ -49,6 +53,11 @@ To display the indicator bar, which is optional, you must copy and paste the fol
 Copy the lslstrength.css file to your css directory and include it in your document ```<head>```:
 
     <link rel="stylesheet" href="./css/lslstrength.min.css">
+
+#### MATERIAL FONT ICON
+Copy the material icon font files to your root directory and include it's css file in your document ```<head>```:
+
+    <link rel="stylesheet" href="./fonts/material-icons.css">
 
 #### JavaScript
 Copy the lslstrength.min.js file to your js directory and include it at the bottom of the document right before the ```<body>``` tag:

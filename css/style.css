@@ -31,38 +31,3 @@ div.form{
     color: grey;
     text-align: left;
 }
-div.field{
-    width: 99%;
-    margin-top: 20%;
-    border: 3px solid;
-    border-radius: 5px;
-    background: white;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-input.password{
-    width: 80%;
-    font-size: 110%;
-    padding: 4% 0% 4% 3%;
-    background: none;
-    border: none;
-    outline: none;
-}
-div.show-pass, div.gen-pass{
-    font-size: 90%;
-    font-weight: 900;
-    color: grey;
-    cursor: pointer;
-    margin-right: 3%;
-    display: flex;
-    align-items: center;
-}
-i.material-icons{
-    font-size: 200%;
-}
-div.show-pass::selection, div.gen-pass::selection, div.show-pass > *::selection, div.gen-pass > *::selection{
-    background: none;
-}
-
-

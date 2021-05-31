@@ -82,7 +82,7 @@ function percentByUppercase(inputPassword){
 }
 
 function percentByChar(inputPassword){
-    var allChar = '`,.~{}()+_=-!@#$%^&*|\\\'":?';
+    var allChar = '`,.~{}()[]/+_=-!@#$%^&*|\\\'":?';
     var noOfChar = [];
 
     inputPassword.split('').forEach(char => {
@@ -129,7 +129,7 @@ generatePasswordBtn.addEventListener('click', (event)=>{
     var upperCaseLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     var lowerCaseLetters = upperCaseLetters.toLowerCase();
     var numbers = '1234567890';
-    var chars = '`,.~{}()+_=-!@#$%^&*|\\\'":?';
+    var chars = '`,.~{}()[]/+_=-!@#$%^&*|\\\'":?';
     var passwordLength = 16;
     
     var newPassword = [];
@@ -161,7 +161,7 @@ generatePasswordBtn.addEventListener('click', (event)=>{
         var letterPosition = Math.floor(Math.random() * numbers.length);
 
         if(newPassword[newPassword.length - 1] != numbers[letterPosition]
-        && parseInt(newPassword[newPassword.length - 1]) + 1 != numbers[letterPosition]
+        && parseInt(newPassword[newPassword.length - 1]) + 1  != numbers[letterPosition]
         && parseInt(newPassword[newPassword.length - 1]) - 1  != numbers[letterPosition]
         && parseInt(newPassword[newPassword.length - 1]) + 2  != numbers[letterPosition]
         && parseInt(newPassword[newPassword.length - 1]) - 2  != numbers[letterPosition]){
@@ -171,22 +171,21 @@ generatePasswordBtn.addEventListener('click', (event)=>{
     }
 
     var letterPosition = Math.floor(Math.random() * chars.length);
-
     newPassword.push(chars[letterPosition]);
-    console.log(newPassword.length - 1 + ' = ' + chars[letterPosition]);
 
-    for (var i = 0; i < newPassword.length; i++) {
-        var randomIndex = Math.floor(Math.random() * newPassword.length);
-        var hold = newPassword[randomIndex];
-        newPassword[randomIndex] = newPassword[i];
-        newPassword[i] = hold;
-    }
+    // randomly sort the generated password 
+    // ISSUE: it scatters the calculated arrangement of the elements 
+
+    // for (var i = 0; i < newPassword.length; i++) {
+    //     var randomIndex = Math.floor(Math.random() * newPassword.length);
+    //     var hold = newPassword[randomIndex];
+    //     newPassword[randomIndex] = newPassword[i];
+    //     newPassword[i] = hold;
+    // }
 
     inputPasswordField.value = newPassword.join('');
     detPasswordStrength(newPassword.join(''));
 });
-
-
 
 function charRepitition(percent, inputPassword){
     var allChar = inputPassword.split('');
